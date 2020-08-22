@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Posts\Post;
+use App\Models\Posts\Article;
 use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
@@ -11,7 +11,7 @@ class IndexController extends Controller
 
     public function show()
     {
-        $articles = (new Post())
+        $articles = (new Article())
             ->select(DB::raw('id, name, image, RIGHT(description, 20) as description'))
             ->orderByDesc("created_at")
             ->limit(self::COUNT_SHOW_ARTICLES)

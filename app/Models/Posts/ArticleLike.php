@@ -4,9 +4,9 @@ namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostComment extends Model
+class ArticleLike extends Model
 {
-    protected $table = "posts_comments";
+    protected $table = "articles_likes";
 
     /**
      * The attributes that are mass assignable.
@@ -14,9 +14,8 @@ class PostComment extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'post_id',
+        'count', 'article_id',
     ];
 
     public $timestamps = false;
-
 }

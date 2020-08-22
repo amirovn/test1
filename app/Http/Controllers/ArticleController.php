@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Posts\Post;
-use App\Models\Posts\PostComment;
-use App\Models\Posts\PostLike;
-use App\Models\Posts\PostView;
+use App\Models\Posts\Article;
+use App\Models\Posts\ArticleComment;
+use App\Models\Posts\ArticleLike;
+use App\Models\Posts\ArticleView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Psr\Log\LoggerInterface;
@@ -26,7 +26,7 @@ class ArticleController extends Controller
     }
     public function articles()
     {
-        $articles = (new Post())
+        $articles = (new Article())
             ->select(DB::raw('id, name, image, RIGHT(description, 20) as description'))
             ->orderByDesc("created_at")
             ->limit(self::COUNT_SHOW_ARTICLES)
@@ -38,7 +38,7 @@ class ArticleController extends Controller
 
     public function article($id)
     {
-        $article = (new Post())
+        $article = (new Article())
             ->where('id', $id)
             ->with(['comments', 'likes', 'views', 'tags'])
             ->first()
@@ -50,14 +50,14 @@ class ArticleController extends Controller
     public function toggleView($id)
     {
         try {
-            $postView = PostView::where(['post_id' => $id])->first();
+            $articleView = ArticleView::where(['article_id' => $id])->first();
 
-            if ($postView !== null) {
-                PostView::where('post_id', $id)->increment('count');
+            if ($articleView !== null) {
+                ArticleView::where('article_id', $id)->increment('count');
             } else {
-                PostView::create([
+                ArticleView::create([
                     "count" => 1,
-                    "post_id" => $id,
+                    "article_id" => $id,
                 ]);
             }
 
@@ -72,18 +72,18 @@ class ArticleController extends Controller
     public function toggleLike($id)
     {
         try {
-            $articleLike = PostLike::where(['post_id' => $id])->first();
+            $articleLike = ArticleLike::where(['article_id' => $id])->first();
 
             if ($articleLike !== null) {
-                PostLike::where('post_id', $id)->increment('count');
+                ArticleLike::where('article_id', $id)->increment('count');
             } else {
-                 PostLike::create([
+                 ArticleLike::create([
                     "count" => 1,
-                    "post_id" => $id,
+                    "article_id" => $id,
                 ]);
             }
 
-            $articleLike = PostLike::where(['post_id' => $id])->first();
+            $articleLike = ArticleLike::where(['article_id' => $id])->first();
 
             return json_encode(['count' => $articleLike->count]);
         } catch (\InvalidArgumentException $e) {
@@ -96,9 +96,9 @@ class ArticleController extends Controller
     public function addComment(Request $request)
     {
         try {
-            PostComment::create([
+            ArticleComment::create([
                 "comment" => $request->get('comment'),
-                "post_id" => $request->get('id'),
+                "article_id" => $request->get('id'),
             ]);
 
             return json_encode($request->get('id'));

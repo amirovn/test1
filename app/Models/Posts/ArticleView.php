@@ -4,9 +4,9 @@ namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostView extends Model
+class ArticleView extends Model
 {
-    protected $table = "posts_views";
+    protected $table = "articles_views";
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,7 @@ class PostView extends Model
      * @var array
      */
     protected $fillable = [
-        'count', 'post_id',
+        'count', 'article_id',
     ];
 
     public $timestamps = false;

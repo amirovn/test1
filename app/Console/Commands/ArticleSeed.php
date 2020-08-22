@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Posts\Post;
+use App\Models\Posts\Article;
 use Illuminate\Console\Command;
 use Faker;
 
@@ -52,6 +52,6 @@ class ArticleSeed extends Command
             ];
         }
 
-        Post::insert($posts);
+        Article::insert($posts);
     }
 }

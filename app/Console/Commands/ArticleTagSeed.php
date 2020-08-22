@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Posts\PostTag;
+use App\Models\Posts\ArticleTag;
 use Illuminate\Console\Command;
 use Faker;
 
@@ -46,11 +46,11 @@ class ArticleTagSeed extends Command
         for ($i = 0; $i < 100; $i++) {
             $tags[] = [
                 "name" => $faker->name,
-                "post_id" => $i + 1,
+                "article_id" => $i + 1,
             ];
 
         }
 
-        PostTag::insert($tags);
+        ArticleTag::insert($tags);
     }
 }

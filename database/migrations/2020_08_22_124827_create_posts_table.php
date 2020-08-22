@@ -13,7 +13,7 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->text('description');
@@ -21,37 +21,37 @@ class CreatePostsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('posts_comments', function (Blueprint $table) {
+        Schema::create('articles_comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_id')->index();
+            $table->unsignedBigInteger('article_id')->index();
             $table->text('description');
             $table->timestamps();
 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
 
-        Schema::create('posts_likes', function (Blueprint $table) {
+        Schema::create('articles_likes', function (Blueprint $table) {
             $table->id();
             $table->integer('count');
-            $table->unsignedBigInteger('post_id')->index();
+            $table->unsignedBigInteger('article_id')->index();
 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
 
-        Schema::create('posts_tags', function (Blueprint $table) {
+        Schema::create('articles_tags', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->unsignedBigInteger('post_id')->index();
+            $table->unsignedBigInteger('article_id')->index();
 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
 
-        Schema::create('posts_views', function (Blueprint $table) {
+        Schema::create('articles_views', function (Blueprint $table) {
             $table->id();
             $table->integer('count');
-            $table->unsignedBigInteger('post_id')->index();
+            $table->unsignedBigInteger('article_id')->index();
 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
     }
 
@@ -62,30 +62,30 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts_comments', function (Blueprint $table) {
-            $table->dropForeign('posts_comments_post_id_foreign');
+        Schema::table('articles_comments', function (Blueprint $table) {
+            $table->dropForeign('articles_comments_article_id_foreign');
         });
 
-        Schema::dropIfExists('posts_comments');
+        Schema::dropIfExists('articles_comments');
 
-        Schema::table('posts_likes', function (Blueprint $table) {
-            $table->dropForeign('posts_likes_post_id_foreign');
+        Schema::table('articles_likes', function (Blueprint $table) {
+            $table->dropForeign('articles_likes_article_id_foreign');
         });
 
-        Schema::dropIfExists('posts_likes');
+        Schema::dropIfExists('articles_likes');
 
-        Schema::table('posts_tags', function (Blueprint $table) {
-            $table->dropForeign('posts_tags_post_id_foreign');
+        Schema::table('articles_tags', function (Blueprint $table) {
+            $table->dropForeign('articles_tags_article_id_foreign');
         });
 
-        Schema::dropIfExists('posts_tags');
+        Schema::dropIfExists('articles_tags');
 
-        Schema::table('posts_views', function (Blueprint $table) {
-            $table->dropForeign('posts_views_post_id_foreign');
+        Schema::table('articles_views', function (Blueprint $table) {
+            $table->dropForeign('articles_views_article_id_foreign');
         });
 
-        Schema::dropIfExists('posts_views');
+        Schema::dropIfExists('articles_views');
 
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('articles');
     }
 }

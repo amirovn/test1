@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Post extends Model
+class Article extends Model
 {
-    protected $table = "posts";
+    protected $table = "articles";
 
     /**
      * The attributes that are mass assignable.
@@ -21,21 +21,21 @@ class Post extends Model
 
     public function comments(): HasMany
     {
-        return $this->hasMany(PostComment::class, 'post_id', 'id');
+        return $this->hasMany(ArticleComment::class, 'article_id', 'id');
     }
 
     public function likes(): HasOne
     {
-        return $this->hasOne(PostLike::class, 'post_id', 'id');
+        return $this->hasOne(ArticleLike::class, 'article_id', 'id');
     }
 
     public function tags(): HasMany
     {
-        return $this->hasMany(PostTag::class, 'post_id', 'id');
+        return $this->hasMany(ArticleTag::class, 'article_id', 'id');
     }
 
     public function views(): HasOne
     {
-        return $this->hasOne(PostView::class, 'post_id', 'id');
+        return $this->hasOne(ArticleView::class, 'article_id', 'id');
     }
 }

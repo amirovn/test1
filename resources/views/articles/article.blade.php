@@ -14,7 +14,7 @@
 
                             <p>{{ $article->description }}</p>
                             <p>{{ $article->created_at }}</p>
-                            <p>{{ $article->created_at }}</p>
+                            <p>{{ $article->updated_at }}</p>
 
                             <p>Теги:
                                 @isset($article->tags)

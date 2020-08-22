@@ -4,9 +4,9 @@ namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostLike extends Model
+class ArticleTag extends Model
 {
-    protected $table = "posts_likes";
+    protected $table = "articles_tags";
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,7 @@ class PostLike extends Model
      * @var array
      */
     protected $fillable = [
-        'count', 'post_id',
+        'name', 'article_id'
     ];
 
     public $timestamps = false;
