@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@show')->name('index');
+Route::get('/articles', 'ArticleController@articles')->name('articles');
+Route::get('/article/{id}', 'ArticleController@article')->name('article');
+Route::get('/article/toggle-like/{id}', 'ArticleController@toggleLike')->name('article-toggle-like');
+Route::get('/article/toggle-view/{id}', 'ArticleController@toggleView')->name('article-toggle-view');
+Route::post('/article/add-comment/', 'ArticleController@addComment')->name('article-add-comment');
